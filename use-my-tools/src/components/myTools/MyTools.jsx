@@ -78,12 +78,8 @@ const MyTools = () => {
                 </>
               ) : (
                 <>
-                  <div style={{ position: "relative" }}>
-                    <img
-                      src={tool.img_url}
-                      style={{ position: "relative" }}
-                      alt={tool.tool_description}
-                    />
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <img src={tool.img_url} alt={tool.tool_description} />
                     <EditImage tool={tool} />
                   </div>
                   <styled.ImgHr />

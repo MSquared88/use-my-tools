@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import * as color from '../../styles/color'
+import * as color from "../../styles/color";
 import { tablet } from "./media";
 
 export const ToolsPage = styled.div`
@@ -16,17 +16,17 @@ export const ToolsPage = styled.div`
   }
 `;
 export const ContainerDiv = styled.div`
-width: 100%;
-display: flex;
-flex-wrap: wrap;
-justify-content: start;
-margin-top: auto;
-padding: 70px 0px 0px;
-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin-top: auto;
+  padding: 70px 0px 0px;
+  height: 100%;
 
-@media (max-width: ${tablet}) {
-  justify-content: center;
-}
+  @media (max-width: ${tablet}) {
+    justify-content: center;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -48,18 +48,18 @@ export const Welcome = styled.h1`
 
 export const ImgHr = styled.hr`
   width: 100%;
+  margin: 0;
   margin-bottom: 10px;
   height: 1px;
   background-color: ${color.primary};
   border: none;
-`
+`;
 
 export const ButtonDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  
-`
+`;
 
 export const Button = styled.button`
 width: 50px;
@@ -72,4 +72,4 @@ text-decoration: none;
 font-size: 1.4rem;
 cursor: pointer;
 outline: none;
-`
+`;

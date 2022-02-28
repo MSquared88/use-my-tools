@@ -12,7 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 // styles
 import * as color from "../../styles/color";
 import * as styled from "../styled-components/appRouter";
-
+import { Button } from "../styled-components/myTools";
 
 const StyledMenu = withStyles({
   paper: {
@@ -58,23 +58,12 @@ export default function EditImage({ tool }) {
 
   return (
     <>
-      <button
-        style={{
-          position: "absolute",
-          top: "160px",
-          left: "55px",
-          background: "Transparent",
-          outline: "none",
-          cursor: "pointer",
-          textDecoration: "none",
-          color: "rgb(0,0,0,0.6)",
-          border: "none",
-          fontSize: "2rem",
-        }}
-        onClick={handleClick}
-      >
-        <ion-icon name="pencil-outline"></ion-icon>
-      </button>
+      <Button onClick={handleClick}>
+        <ion-icon
+          name="pencil-outline"
+          style={{ color: color.background }}
+        ></ion-icon>
+      </Button>
       <StyledMenu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -83,13 +72,13 @@ export default function EditImage({ tool }) {
         onClose={handleClose}
       >
         <StyledMenuItem onClick={handleClose}>
-          <styled.Button 
+          <styled.Button
             onClick={() => {
-              console.log(tool)
-              dispatch(deleteImage(tool))
+              console.log(tool);
+              dispatch(deleteImage(tool));
             }}
           >
-            Delete
+            Delete Image
           </styled.Button>
         </StyledMenuItem>
       </StyledMenu>

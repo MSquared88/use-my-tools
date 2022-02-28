@@ -20,9 +20,8 @@ function ToolCard(props) {
         ) : (
           <img src={props.tool.img_url} alt={props.tool.tool_name} />
         )}
-        <h4>Owner: {props.tool.user_name}</h4>
+        <h4>Owner:{props.tool.user_name}</h4>
 
-        <h4>Type: {props.tool.tool_type}</h4>
         <h4>Tool Description: {props.tool.tool_description}</h4>
 
         <RequestTool
