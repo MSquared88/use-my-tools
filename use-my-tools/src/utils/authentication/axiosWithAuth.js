@@ -1,15 +1,15 @@
-import axios from 'axios';
-
+import axios from "axios";
+import { BASE_URL } from "../baseURL";
 
 const axiosWithAuth = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   return axios.create({
-    baseURL: 'https://project-use-my-tools.herokuapp.com',
+    baseURL: BASE_URL,
     headers: {
-      token: token
-    }
+      token: token,
+    },
   });
 };
 
-export default axiosWithAuth
+export default axiosWithAuth;

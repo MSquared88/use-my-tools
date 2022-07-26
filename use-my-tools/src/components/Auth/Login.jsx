@@ -1,45 +1,48 @@
-import React from 'react'
-import {withFormik, Form, Field} from 'formik'
-import * as Yup from 'yup'
-import axios from 'axios'
+import React from "react";
+import { withFormik, Form, Field } from "formik";
+import * as Yup from "yup";
+
+//api
+import axios from "axios";
+import { BASE_URL } from "../../utils/baseURL";
 
 //redux
-import {connect, useSelector} from 'react-redux'
-import {loginStart, loginSuccess, loginFail} from '../../store/actions'
+import { connect, useSelector } from "react-redux";
+import { loginStart, loginSuccess, loginFail } from "../../store/actions";
 
 //styles
-import {FormContainer} from '../styled-components/form'
-import * as color from '../../styles/color'
+import { FormContainer } from "../styled-components/form";
+import * as color from "../../styles/color";
 
 //component
-import Loader from 'react-loader-spinner'
+import Loader from "react-loader-spinner";
 
 const errorDiv = {
-  marginTop: '40px',
-  height: '60px',
-  fontSize: '2rem',
-  color: 'red',
-  background: 'pink',
-}
+  marginTop: "40px",
+  height: "60px",
+  fontSize: "2rem",
+  color: "red",
+  background: "pink",
+};
 
 const loaderStyle = {
-  height: '100%',
-  width: '100%',
-  background: 'rgb(0,0,0,.8)',
-  position: 'fixed',
-  bottom: '0',
-  Zindex: '2',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}
+  height: "100%",
+  width: "100%",
+  background: "rgb(0,0,0,.8)",
+  position: "fixed",
+  bottom: "0",
+  Zindex: "2",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
-function Login({touched, errors, status}) {
-  const loggingStatus = useSelector(state => state.login.loggingStatus)
+function Login({ touched, errors, status }) {
+  const isLoggingIn = useSelector((state) => state.login.isLoggingIn);
 
   return (
     <>
-      {loggingStatus ? (
+      {isLoggingIn ? (
         <div style={loaderStyle}>
           <Loader type="Oval" color={color.spinner} height={150} width={150} />
         </div>
@@ -52,19 +55,21 @@ function Login({touched, errors, status}) {
           <div
             style={{
               backgroundColor: color.primary,
-              marginBottom: '3rem',
-              padding: '1rem',
+              marginBottom: "3rem",
+              padding: "1rem",
             }}
           >
-            <h1 style={{color: 'black'}}>DEMO LOGIN</h1>
-            <p style={{color: 'black', fontSize: '1.5rem'}}>
+            <h1 style={{ color: "black" }}>DEMO LOGIN</h1>
+            <p style={{ color: "black", fontSize: "1.5rem" }}>
               username: demo123
             </p>
-            <p style={{color: 'black', fontSize: '1.5rem'}}>
+            <p style={{ color: "black", fontSize: "1.5rem" }}>
               password: demo123
             </p>
           </div>
-          <p style={{color: 'red'}}>{touched.user_name && errors.user_name}</p>
+          <p style={{ color: "red" }}>
+            {touched.user_name && errors.user_name}
+          </p>
           <div className="ui input">
             <Field
               placeholder="Enter your username"
@@ -72,7 +77,7 @@ function Login({touched, errors, status}) {
               type="text"
             />
           </div>
-          <p style={{color: 'red'}}>{touched.password && errors.password}</p>
+          <p style={{ color: "red" }}>{touched.password && errors.password}</p>
           <div className="ui input">
             <Field placeholder="Password" name="password" type="password" />
           </div>
@@ -84,41 +89,41 @@ function Login({touched, errors, status}) {
         </Form>
       </FormContainer>
     </>
-  )
+  );
 }
 
 const FormikRegister = withFormik({
-  mapPropsToValues({user_name, password}) {
+  mapPropsToValues({ user_name, password }) {
     return {
-      user_name: user_name || '',
-      password: password || '',
-    }
+      user_name: user_name || "",
+      password: password || "",
+    };
   },
   validationSchema: Yup.object().shape({
-    user_name: Yup.string().required('Username is a required field'),
-    password: Yup.string().required('Password is a required field'),
+    user_name: Yup.string().required("Username is a required field"),
+    password: Yup.string().required("Password is a required field"),
   }),
 
   handleSubmit(values, props) {
-    props.props.loginStart()
+    props.props.loginStart();
     axios
-      .post(`https://project-use-my-tools.herokuapp.com/api/user/login`, values)
-      .then(res => {
-        props.props.loginSuccess(values)
-        console.log(res)
-        localStorage.setItem('token', res.data.token)
-        localStorage.setItem('username', values.user_name)
-        props.props.history.push(`/marketplace/${values.user_name}`)
+      .post(`${BASE_URL}/api/user/login`, values)
+      .then((res) => {
+        props.props.loginSuccess(values);
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", values.user_name);
+        props.props.history.push(`/marketplace/${values.user_name}`);
       })
-      .catch(err => {
-        props.props.loginFail(err)
-        console.log('err', err)
-        props.setStatus({message: 'Invalid Username or Password'})
-      })
-    props.resetForm()
+      .catch((err) => {
+        props.props.loginFail(err);
+        console.log("err", err);
+        props.setStatus({ message: "Invalid Username or Password" });
+      });
+    props.resetForm();
   },
-})(Login)
+})(Login);
 
-export default connect(null, {loginStart, loginSuccess, loginFail})(
-  FormikRegister,
-)
+export default connect(null, { loginStart, loginSuccess, loginFail })(
+  FormikRegister
+);
